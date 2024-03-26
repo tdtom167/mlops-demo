@@ -1,0 +1,40 @@
+# The name of the bundle. run `databricks bundle schema` to see the full bundle settings schema.
+bundle:
+  name: demo_mlops
+
+variables:
+  experiment_name:
+    description: Experiment name for the model training.
+    default: /Users/${workspace.current_user.userName}/${bundle.target}-demo_mlops-experiment
+  model_name:
+    description: Model name for the model training.
+    default: demo_mlops-model
+
+include:
+  # Resources folder contains ML artifact resources for the ML project that defines model and experiment
+  # And workflows resources for the ML project including model training -> validation -> deployment,
+  # batch inference, data monitoring, metric refresh, alerts and triggering retraining
+  - ./resources/*.yml
+
+# Deployment Target specific values for workspace
+targets:
+  dev:  # UC Catalog Name 
+    default: true
+    workspace:
+      # TODO: add dev workspace URL
+      host:
+
+
+
+  prod_aut_gnai00_lab_catalog:
+    workspace:
+      host: https://adb-4394007684464835.15.azuredatabricks.net
+
+  prod_aut_dlat00_catalog:
+    workspace:
+      host: https://adb-925694724636289.9.azuredatabricks.net
+
+  prod_aut_gnai00_lab_catalog:
+    workspace:
+      host: https://adb-4394007684464835.15.azuredatabricks.net
+
